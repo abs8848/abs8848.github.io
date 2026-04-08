@@ -64,22 +64,18 @@
 }
 
 /* 隐藏文章元信息行（日期、标签、分类等全部隐藏） */
-.home-article-info,
-.home-article-meta,
-.home-article-tags,
+.home-article-meta-info-container,
+.home-article-meta-info,
 .home-article-date,
 .home-article-category,
-.home-article-list .home-article-item .meta-line,
-.home-article-item .meta-row,
-.home-article-item li,
-.home-article-item .gap-1,
-.home-article-item .text-second,
-.home-article-item .justify-between,
-.home-article-item [class*="text-"][class*="second"],
-.home-article-item .mt-2,
-.home-article-item .mb-2,
-.home-article-item .py-1,
-.home-article-item .text-sm {
+.home-article-tag,
+.home-article-meta-info-container * {
+    display: none !important;
+}
+
+/* 隐藏"阅读全文"链接 */
+.home-article-item > a[href*="阅读全文"],
+.home-article-content + a {
     display: none !important;
 }
 
