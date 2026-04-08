@@ -1,6 +1,6 @@
 /* ============================================
-   自定义样式 - 4列卡片网格布局
-   ============================================ */
+  自定义样式 - 4列卡片网格布局
+  ============================================ */
 
 /* 首页文章列表改为网格布局 - 使用更高优先级的选择器 */
 .home-content-container .home-article-list,
@@ -11,6 +11,7 @@
     list-style: none !important;
     padding: 0 !important;
     margin: 0 !important;
+    width: 100% !important;
 }
 
 /* 单个文章卡片 */
@@ -26,6 +27,9 @@
     margin-bottom: 0 !important;
     padding: 0 !important;
     width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
 }
 
 .home-article-item:hover {
@@ -35,8 +39,9 @@
 
 /* 文章缩略图 */
 .home-article-thumbnail {
-    height: 140px !important;
+    height: 160px !important;
     overflow: hidden !important;
+    flex-shrink: 0 !important;
 }
 
 .home-article-thumbnail img {
@@ -53,16 +58,22 @@
 
 /* 文章内容区域 */
 .home-article-item .flex-col {
-    padding: 16px !important;
-    gap: 10px !important;
+    padding: 14px !important;
+    gap: 8px !important;
 }
 
 /* 文章标题 */
 .home-article-title {
-    font-size: 16px !important;
+    font-size: 15px !important;
     font-weight: 600 !important;
     line-height: 1.4 !important;
     margin: 0 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
 }
 
 .home-article-title a {
@@ -74,11 +85,19 @@
 .home-article-content {
     font-size: 13px !important;
     color: var(--second-text-color) !important;
-    line-height: 1.6 !important;
+    line-height: 1.5 !important;
     display: -webkit-box !important;
-    -webkit-line-clamp: 3 !important;
+    -webkit-line-clamp: 2 !important;
     -webkit-box-orient: vertical !important;
     overflow: hidden !important;
+    margin: 0 !important;
+}
+
+/* 文章元信息（日期、标签等） */
+.home-article-info {
+    font-size: 12px !important;
+    color: var(--third-text-color) !important;
+    margin-top: auto !important;
 }
 
 /* 隐藏左侧作者卡片 */
