@@ -2,8 +2,10 @@
 (function() {
   function fixImages() {
     document.querySelectorAll('.home-article-thumbnail img').forEach(function(img) {
-      // 强制覆盖所有样式
-      img.setAttribute('style', 'object-fit: contain !important; object-position: center center !important;');
+      // 保存原有样式
+      var originalStyle = img.getAttribute('style') || '';
+      // 保留原有样式，添加/覆盖object-fit相关样式
+      img.style.cssText = originalStyle + '; object-fit: contain !important; object-position: center center !important;';
     });
   }
   
@@ -13,6 +15,8 @@
   // DOM加载完成后再次执行
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', fixImages);
+  } else {
+    fixImages();
   }
   
   // 图片懒加载可能之后才添加图片，所以也监听load事件
