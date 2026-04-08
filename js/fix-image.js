@@ -1,9 +1,8 @@
-// 修复首页文章卡片图片显示 - 保持卡片布局，图片完整显示
+// 确保图片在卡片中正确显示
 (function() {
   function fixImages() {
     document.querySelectorAll('.home-article-thumbnail img').forEach(function(img) {
-      // 只修改图片的object-fit，保留其他所有样式
-      img.style.objectFit = 'contain';
+      img.style.objectFit = 'cover';
       img.style.objectPosition = 'center center';
     });
   }
@@ -34,7 +33,6 @@
   }
   
   // 保底方案
-  setTimeout(fixImages, 500);
-  setTimeout(fixImages, 1500);
-  setTimeout(fixImages, 3000);
+  setTimeout(fixImages, 1000);
+  setTimeout(fixImages, 2000);
 })();
