@@ -40,7 +40,8 @@
 /* 首页文章缩略图 - 图片填满显示 */
 .home-content-container .home-article-thumbnail,
 #home-article-thumbnail {
-    height: 180px !important;
+    width: 292px !important;
+    height: 256px !important;
     overflow: hidden !important;
     flex-shrink: 0 !important;
     background: var(--third-background-color) !important;
@@ -48,8 +49,8 @@
 
 .home-content-container .home-article-thumbnail img,
 #home-article-thumbnail img {
-    width: 100% !important;
-    height: 100% !important;
+    width: 292px !important;
+    height: 256px !important;
     object-fit: cover !important;
     object-position: center center !important;
     transition: transform 0.3s ease !important;
