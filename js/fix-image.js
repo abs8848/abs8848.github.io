@@ -1,48 +1,25 @@
-// 修复首页文章卡片图片显示 - 强制完整显示图片
+// 修复首页文章卡片图片显示 - 保持卡片布局，图片完整显示
 (function() {
-  // 注入高优先级CSS
-  function injectCSS() {
-    var style = document.createElement('style');
-    style.id = 'fix-image-override';
-    style.textContent = [
-      '.home-article-thumbnail img {',
-      '  object-fit: contain !important;',
-      '  object-position: center center !important;',
-      '}'
-    ].join('\n');
-    (document.head || document.documentElement).appendChild(style);
-  }
-  
-  // 直接修改元素样式
   function fixImages() {
-    var imgs = document.querySelectorAll('.home-article-thumbnail img');
-    imgs.forEach(function(img) {
+    document.querySelectorAll('.home-article-thumbnail img').forEach(function(img) {
+      // 只修改图片的object-fit，保留其他所有样式
       img.style.objectFit = 'contain';
       img.style.objectPosition = 'center center';
     });
-    console.log('Fixed ' + imgs.length + ' images');
   }
   
   // 立即执行
-  injectCSS();
   fixImages();
   
   // DOM加载完成后再次执行
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-      injectCSS();
-      fixImages();
-    });
+    document.addEventListener('DOMContentLoaded', fixImages);
   } else {
-    injectCSS();
     fixImages();
   }
   
   // 页面完全加载后执行
-  window.addEventListener('load', function() {
-    injectCSS();
-    fixImages();
-  });
+  window.addEventListener('load', fixImages);
   
   // MutationObserver监控DOM变化
   if (typeof MutationObserver !== 'undefined') {
@@ -53,10 +30,7 @@
   
   // 兼容Swup
   if (typeof window.swup !== 'undefined') {
-    window.swup.on('contentReplaced', function() {
-      injectCSS();
-      fixImages();
-    });
+    window.swup.on('contentReplaced', fixImages);
   }
   
   // 保底方案
