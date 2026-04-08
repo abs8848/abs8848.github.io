@@ -81,6 +81,13 @@
     overflow: hidden !important;
 }
 
+/* 隐藏左侧作者卡片 */
+.home-sidebar-container,
+.home-author-wrapper,
+.home-author {
+    display: none !important;
+}
+
 /* 响应式布局 */
 @media (max-width: 1200px) {
     .home-article-list {
