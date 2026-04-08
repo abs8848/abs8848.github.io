@@ -1,11 +1,21 @@
 // 修复首页文章卡片图片显示 - 强制完整显示图片
 (function() {
+  // 方法1: 注入高优先级CSS
+  var style = document.createElement('style');
+  style.id = 'fix-image-override';
+  style.textContent = [
+    '.home-article-thumbnail img {',
+    '  object-fit: contain !important;',
+    '  object-position: center center !important;',
+    '}'
+  ].join('\n');
+  (document.head || document.documentElement).appendChild(style);
+  
+  // 方法2: 直接修改元素样式作为备用
   function fixImages() {
     document.querySelectorAll('.home-article-thumbnail img').forEach(function(img) {
-      // 保存原有样式
-      var originalStyle = img.getAttribute('style') || '';
-      // 保留原有样式，添加/覆盖object-fit相关样式
-      img.style.cssText = originalStyle + '; object-fit: contain !important; object-position: center center !important;';
+      img.style.setProperty('object-fit', 'contain', 'important');
+      img.style.setProperty('object-position', 'center center', 'important');
     });
   }
   
@@ -15,8 +25,6 @@
   // DOM加载完成后再次执行
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', fixImages);
-  } else {
-    fixImages();
   }
   
   // 图片懒加载可能之后才添加图片，所以也监听load事件
