@@ -112,16 +112,10 @@
     text-decoration: none !important;
 }
 
-/* 文章摘要 */
-.home-article-content {
-    font-size: 13px !important;
-    color: var(--second-text-color) !important;
-    line-height: 1.5 !important;
-    display: -webkit-box !important;
-    -webkit-line-clamp: 2 !important;
-    -webkit-box-orient: vertical !important;
-    overflow: hidden !important;
-    margin: 0 !important;
+/* 文章摘要 - 隐藏 */
+.home-article-content,
+.home-article-excerpt {
+    display: none !important;
 }
 
 /* 文章元信息（日期、标签等） */
