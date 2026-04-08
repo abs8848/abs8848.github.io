@@ -27,9 +27,9 @@
     margin-bottom: 0 !important;
     padding: 0 !important;
     width: 100% !important;
-    height: auto !important;
-    min-height: auto !important;
-    max-height: none !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
 }
 
 .home-article-item:hover {
@@ -39,30 +39,30 @@
 
 /* 文章缩略图 - 图片完整显示 */
 .home-article-thumbnail {
-    height: 160px !important;
+    min-height: 200px !important;
+    max-height: 280px !important;
+    height: auto !important;
     overflow: hidden !important;
     flex-shrink: 0 !important;
     background: var(--third-background-color) !important;
-    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
 .home-article-thumbnail img {
     max-width: 100% !important;
-    max-height: 160px !important;
+    max-height: 280px !important;
     width: auto !important;
     height: auto !important;
     object-fit: contain !important;
     object-position: center center !important;
     transition: transform 0.3s ease !important;
     display: block !important;
-    position: absolute !important;
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
 }
 
 .home-article-item:hover .home-article-thumbnail img {
-    transform: translate(-50%, -50%) scale(1.02) !important;
+    transform: scale(1.02) !important;
 }
 
 /* 文章内容区域 */
