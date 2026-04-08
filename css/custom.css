@@ -1,1 +1,95 @@
-/* 文章卡片封面图片 - 使用JS强制修改 */
+/* ============================================
+   自定义样式 - 4列卡片网格布局
+   ============================================ */
+
+/* 首页文章列表改为网格布局 */
+.home-article-list {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 20px !important;
+    list-style: none !important;
+    padding: 0 !important;
+}
+
+/* 单个文章卡片 */
+.home-article-item {
+    background: var(--background-color) !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+    border: 1px solid var(--border-color) !important;
+    margin-bottom: 0 !important;
+}
+
+.home-article-item:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* 文章缩略图 */
+.home-article-thumbnail {
+    height: 140px !important;
+    overflow: hidden !important;
+}
+
+.home-article-thumbnail img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+    transition: transform 0.3s ease !important;
+}
+
+.home-article-item:hover .home-article-thumbnail img {
+    transform: scale(1.05) !important;
+}
+
+/* 文章内容区域 */
+.home-article-item .flex-col {
+    padding: 16px !important;
+    gap: 10px !important;
+}
+
+/* 文章标题 */
+.home-article-title {
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    line-height: 1.4 !important;
+    margin: 0 !important;
+}
+
+.home-article-title a {
+    color: var(--first-text-color) !important;
+    text-decoration: none !important;
+}
+
+/* 文章摘要 */
+.home-article-content {
+    font-size: 13px !important;
+    color: var(--second-text-color) !important;
+    line-height: 1.6 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+}
+
+/* 响应式布局 */
+@media (max-width: 1200px) {
+    .home-article-list {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+
+@media (max-width: 900px) {
+    .home-article-list {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .home-article-list {
+        grid-template-columns: 1fr !important;
+    }
+}
