@@ -70,7 +70,16 @@
 .home-article-date,
 .home-article-category,
 .home-article-list .home-article-item .meta-line,
-.home-article-item .meta-row {
+.home-article-item .meta-row,
+.home-article-item li,
+.home-article-item .gap-1,
+.home-article-item .text-second,
+.home-article-item .justify-between,
+.home-article-item [class*="text-"][class*="second"],
+.home-article-item .mt-2,
+.home-article-item .mb-2,
+.home-article-item .py-1,
+.home-article-item .text-sm {
     display: none !important;
 }
 
