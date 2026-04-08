@@ -60,6 +60,18 @@
     transform: scale(1.05) !important;
 }
 
+/* 隐藏文章详情页顶部图片 */
+.article-title > img,
+.post-page-container .article-title img,
+.article-content-container .article-title > img {
+    display: none !important;
+}
+
+/* 文章详情页标题样式调整 */
+.article-title:not(:has(img)) {
+    padding-top: 1rem !important;
+}
+
 /* 隐藏文章元信息行（日期、标签、分类等全部隐藏） */
 .home-article-meta-info-container,
 .home-article-meta-info,
