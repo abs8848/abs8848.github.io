@@ -1,6 +1,6 @@
 // 修复首页文章卡片图片显示 - 强制完整显示图片
 (function() {
-  // 方法1: 注入高优先级CSS
+  // 注入高优先级CSS
   function injectCSS() {
     var style = document.createElement('style');
     style.id = 'fix-image-override';
@@ -13,12 +13,14 @@
     (document.head || document.documentElement).appendChild(style);
   }
   
-  // 方法2: 直接修改元素样式作为备用
+  // 直接修改元素样式
   function fixImages() {
-    document.querySelectorAll('.home-article-thumbnail img').forEach(function(img) {
-      img.style.setProperty('object-fit', 'contain', 'important');
-      img.style.setProperty('object-position', 'center center', 'important');
+    var imgs = document.querySelectorAll('.home-article-thumbnail img');
+    imgs.forEach(function(img) {
+      img.style.objectFit = 'contain';
+      img.style.objectPosition = 'center center';
     });
+    console.log('Fixed ' + imgs.length + ' images');
   }
   
   // 立即执行
@@ -31,6 +33,9 @@
       injectCSS();
       fixImages();
     });
+  } else {
+    injectCSS();
+    fixImages();
   }
   
   // 页面完全加载后执行
@@ -39,14 +44,14 @@
     fixImages();
   });
   
-  // 使用MutationObserver监控DOM变化
+  // MutationObserver监控DOM变化
   if (typeof MutationObserver !== 'undefined') {
-    new MutationObserver(function(mutations) {
+    new MutationObserver(function() {
       fixImages();
     }).observe(document.body, { childList: true, subtree: true });
   }
   
-  // 兼容Swup页面过渡库
+  // 兼容Swup
   if (typeof window.swup !== 'undefined') {
     window.swup.on('contentReplaced', function() {
       injectCSS();
@@ -54,14 +59,8 @@
     });
   }
   
-  // 使用setTimeout作为保底方案
-  setTimeout(function() {
-    injectCSS();
-    fixImages();
-  }, 1000);
-  
-  setTimeout(function() {
-    injectCSS();
-    fixImages();
-  }, 3000);
+  // 保底方案
+  setTimeout(fixImages, 500);
+  setTimeout(fixImages, 1500);
+  setTimeout(fixImages, 3000);
 })();
