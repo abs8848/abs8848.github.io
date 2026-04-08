@@ -37,11 +37,9 @@
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
 }
 
-/* 文章缩略图 - 图片完整显示 */
+/* 文章缩略图 - 图片最大化显示 */
 .home-article-thumbnail {
-    min-height: 200px !important;
-    max-height: 280px !important;
-    height: auto !important;
+    height: 220px !important;
     overflow: hidden !important;
     flex-shrink: 0 !important;
     background: var(--third-background-color) !important;
@@ -51,24 +49,31 @@
 }
 
 .home-article-thumbnail img {
-    max-width: 100% !important;
-    max-height: 280px !important;
-    width: auto !important;
-    height: auto !important;
-    object-fit: contain !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
     object-position: center center !important;
     transition: transform 0.3s ease !important;
     display: block !important;
 }
 
 .home-article-item:hover .home-article-thumbnail img {
-    transform: scale(1.02) !important;
+    transform: scale(1.03) !important;
+}
+
+/* 隐藏文章元信息（日期、标签等） */
+.home-article-info,
+.home-article-meta,
+.home-article-tags,
+.home-article-date {
+    display: none !important;
 }
 
 /* 文章内容区域 */
 .home-article-item .flex-col {
-    padding: 14px !important;
-    gap: 8px !important;
+    padding: 12px 14px !important;
+    gap: 6px !important;
+    flex-shrink: 0 !important;
 }
 
 /* 文章标题 */
@@ -77,12 +82,10 @@
     font-weight: 600 !important;
     line-height: 1.4 !important;
     margin: 0 !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    white-space: nowrap !important;
     display: -webkit-box !important;
     -webkit-line-clamp: 2 !important;
     -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
 }
 
 .home-article-title a {
