@@ -2,16 +2,20 @@
    自定义样式 - 4列卡片网格布局
    ============================================ */
 
-/* 首页文章列表改为网格布局 */
+/* 首页文章列表改为网格布局 - 使用更高优先级的选择器 */
+.home-content-container .home-article-list,
 .home-article-list {
     display: grid !important;
     grid-template-columns: repeat(4, 1fr) !important;
     gap: 20px !important;
     list-style: none !important;
     padding: 0 !important;
+    margin: 0 !important;
 }
 
 /* 单个文章卡片 */
+.home-content-container .home-article-list .home-article-item,
+.home-article-list .home-article-item,
 .home-article-item {
     background: var(--background-color) !important;
     border-radius: 12px !important;
@@ -20,6 +24,8 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease !important;
     border: 1px solid var(--border-color) !important;
     margin-bottom: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
 }
 
 .home-article-item:hover {
