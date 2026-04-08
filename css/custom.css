@@ -37,23 +37,28 @@
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
 }
 
-/* 文章缩略图 */
+/* 文章缩略图 - 图片完整显示 */
 .home-article-thumbnail {
     height: 160px !important;
     overflow: hidden !important;
     flex-shrink: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: var(--third-background-color) !important;
 }
 
 .home-article-thumbnail img {
     width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
+    height: auto !important;
+    max-height: 160px !important;
+    object-fit: contain !important;
     object-position: center center !important;
     transition: transform 0.3s ease !important;
 }
 
 .home-article-item:hover .home-article-thumbnail img {
-    transform: scale(1.05) !important;
+    transform: scale(1.02) !important;
 }
 
 /* 文章内容区域 */
