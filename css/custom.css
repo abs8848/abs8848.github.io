@@ -22,7 +22,8 @@
     border-radius: 12px !important;
     overflow: hidden !important;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
-    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+    /* 移除过渡动画效果 */
+    transition: none !important;
     border: 1px solid var(--border-color) !important;
     margin-bottom: 0 !important;
     padding: 0 !important;
@@ -33,8 +34,9 @@
 }
 
 .home-article-item:hover {
-    transform: translateY(-4px) !important;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+    /* 移除悬停时的动画效果 */
+    transform: none !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
 }
 
 /* 首页文章缩略图 - 图片填满显示 */
@@ -53,12 +55,14 @@
     height: 256px !important;
     object-fit: cover !important;
     object-position: center center !important;
-    transition: transform 0.3s ease !important;
+    /* 移除图片过渡动画 */
+    transition: none !important;
 }
 
 .home-content-container .home-article-item:hover .home-article-thumbnail img,
 .home-article-item:hover #home-article-thumbnail img {
-    transform: scale(1.05) !important;
+    /* 移除图片悬停时的缩放效果 */
+    transform: none !important;
 }
 
 /* 隐藏文章详情页顶部图片 */
