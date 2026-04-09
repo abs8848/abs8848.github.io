@@ -22,8 +22,9 @@
     border-radius: 12px !important;
     overflow: hidden !important;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
-    /* 移除过渡动画效果 */
+    /* 移除所有过渡和变换动画效果 */
     transition: none !important;
+    transform: none !important;
     border: 1px solid var(--border-color) !important;
     margin-bottom: 0 !important;
     padding: 0 !important;
@@ -33,10 +34,19 @@
     flex-direction: column !important;
 }
 
-.home-article-item:hover {
-    /* 移除悬停时的动画效果 */
+/* 强力覆盖所有可能的悬停效果 */
+.home-content-container .home-article-list .home-article-item:hover,
+.home-article-list .home-article-item:hover,
+.home-article-item:hover,
+.home-content-container .home-article-list .home-article-item.hover,
+.home-article-list .home-article-item.hover,
+.home-article-item.hover {
+    /* 移除悬停时的所有动画效果 */
     transform: none !important;
+    scale: 1 !important;
+    translate: 0 0 !important;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+    transition: none !important;
 }
 
 /* 首页文章缩略图 - 图片填满显示 */
@@ -55,14 +65,23 @@
     height: 256px !important;
     object-fit: cover !important;
     object-position: center center !important;
-    /* 移除图片过渡动画 */
+    /* 移除图片所有过渡动画 */
     transition: none !important;
+    transform: none !important;
 }
 
+/* 强力覆盖缩略图所有可能的悬停效果 */
 .home-content-container .home-article-item:hover .home-article-thumbnail img,
-.home-article-item:hover #home-article-thumbnail img {
-    /* 移除图片悬停时的缩放效果 */
+.home-article-item:hover #home-article-thumbnail img,
+.home-article-item.hover .home-article-thumbnail img,
+.home-article-item.hover\:scale-102 .home-article-thumbnail img,
+.home-article-thumbnail img:hover,
+.home-article-thumbnail img.hover,
+.home-article-thumbnail img.hover\:scale-102 {
+    /* 移除图片悬停时的所有缩放和变换效果 */
     transform: none !important;
+    scale: 1 !important;
+    transition: none !important;
 }
 
 /* 隐藏文章详情页顶部图片 */
