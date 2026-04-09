@@ -2,6 +2,12 @@
   自定义样式 - 4列卡片网格布局
   ============================================ */
 
+/* 缩略图显示链接手势 */
+.home-article-thumbnail a,
+.home-article-thumbnail a img {
+    cursor: pointer !important;
+}
+
 /* 首页文章列表改为网格布局 - 使用更高优先级的选择器 */
 .home-content-container .home-article-list,
 .home-article-list {
