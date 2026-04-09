@@ -60,11 +60,11 @@
     transition: none !important;
 }
 
-/* 首页文章缩略图 - 图片填满显示 */
+/* 首页文章缩略图 - 图片填满显示 (240×135 16:9) */
 .home-content-container .home-article-thumbnail,
 #home-article-thumbnail {
-    width: 292px !important;
-    height: 256px !important;
+    width: 240px !important;
+    height: 135px !important;
     overflow: hidden !important;
     flex-shrink: 0 !important;
     background: var(--third-background-color) !important;
@@ -72,8 +72,8 @@
 
 .home-content-container .home-article-thumbnail img,
 #home-article-thumbnail img {
-    width: 292px !important;
-    height: 256px !important;
+    width: 240px !important;
+    height: 135px !important;
     object-fit: cover !important;
     object-position: center center !important;
     /* 移除图片所有过渡动画 */
