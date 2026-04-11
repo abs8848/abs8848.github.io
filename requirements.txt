@@ -1,0 +1,2 @@
+# Vercel Python dependencies
+# Star Office UI Backend
