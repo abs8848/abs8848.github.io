@@ -15,7 +15,7 @@
 
 ### Step 2: 下载推送脚本
 ```bash
-curl -o office-agent-push.py https://office.hyacinth.im/static/office-agent-push.py
+curl -o office-agent-push.py https://office.hyacinth.im/office-agent-push.py
 ```
 
 ### Step 3: 配置并运行
