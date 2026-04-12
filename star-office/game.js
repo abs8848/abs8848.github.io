@@ -912,21 +912,47 @@ function showCatBubble() {
 }
 
 function fetchAgents() {
-  fetch('/agents?t=' + Date.now(), { cache: 'no-store' })
+  // 调用 Vercel API 获取多用户状态
+  fetch('https://star-office-api-ohlg.vercel.app/status?t=' + Date.now(), { cache: 'no-store' })
     .then(response => response.json())
     .then(data => {
-      if (!Array.isArray(data)) return;
+      // 从 API 响应中提取 users 数据
+      const users = data.users || {};
+      const agentList = [];
+      
+      // 将 users 对象转换为 agent 数组
+      for (const [userId, userInfo] of Object.entries(users)) {
+        // 跳过 owner，因为 owner 用主角色显示
+        if (userId === 'owner') continue;
+        
+        // 根据用户状态决定区域
+        let area = 'breakroom';
+        if (userInfo.state === 'working' || userInfo.state === 'writing') {
+          area = 'writing';
+        } else if (userInfo.state === 'error') {
+          area = 'error';
+        }
+        
+        agentList.push({
+          agentId: userId,
+          name: userInfo.name || userId,
+          area: area,
+          authStatus: userInfo.state === 'active' ? 'approved' : 'pending',
+          emoji: userInfo.emoji || '🤖',
+          isMain: false
+        });
+      }
+      
       // 重置位置计数器
-      // 按区域分配不同位置索引，避免重叠
       const areaSlots = { breakroom: 0, writing: 0, error: 0 };
-      for (let agent of data) {
+      for (let agent of agentList) {
         const area = agent.area || 'breakroom';
         agent._slotIndex = areaSlots[area] || 0;
         areaSlots[area] = (areaSlots[area] || 0) + 1;
         renderAgent(agent);
       }
       // 移除不再存在的 agent
-      const currentIds = new Set(data.map(a => a.agentId));
+      const currentIds = new Set(agentList.map(a => a.agentId));
       for (let id in agents) {
         if (!currentIds.has(id)) {
           if (agents[id]) {
@@ -937,7 +963,7 @@ function fetchAgents() {
       }
     })
     .catch(error => {
-      console.error('拉取 agents 失败:', error);
+      // 静默失败，不显示错误（本地模式没有API）
     });
 }
 
@@ -974,12 +1000,12 @@ function renderAgent(agent) {
     const container = game.add.container(baseX, baseY);
     container.setDepth(1200 + (isMain ? 100 : 0)); // 放到最顶层！
 
-    // 像素小人：用星星图标，更明显
-    const starIcon = game.add.text(0, 0, '⭐', {
-      fontFamily: 'ArkPixel, monospace',
+    // 像素小人：用emoji图标
+    const emojiIcon = game.add.text(0, 0, agent.emoji || '🤖', {
+      fontFamily: 'Arial, sans-serif',
       fontSize: '32px'
     }).setOrigin(0.5);
-    starIcon.name = 'starIcon';
+    emojiIcon.name = 'emojiIcon';
 
     // 名字标签（漂浮）
     const nameTag = game.add.text(0, -36, name, {
@@ -1002,7 +1028,7 @@ function renderAgent(agent) {
     statusDot.setStrokeStyle(2, 0x000000, alpha);
     statusDot.name = 'statusDot';
 
-    container.add([starIcon, statusDot, nameTag]);
+    container.add([emojiIcon, statusDot, nameTag]);
     agents[agentId] = container;
   } else {
     // 更新 agent
