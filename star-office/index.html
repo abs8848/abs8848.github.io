@@ -7,7 +7,7 @@
     <style>
         @font-face {
             font-family: 'ArkPixel';
-            src: url('/fonts/ark-pixel-12px-proportional-zh_cn.ttf.woff2') format('woff2');
+            src: url('/star-office/fonts/ark-pixel-12px-proportional-zh_cn.ttf.woff2') format('woff2');
             font-weight: normal;
             font-style: normal;
         }
@@ -1552,7 +1552,7 @@
             const memoContent = document.getElementById('memo-content');
             
             try {
-                const response = await fetch('/yesterday-memo?t=' + Date.now(), { cache: 'no-store' });
+                const response = await fetch('/star-office/yesterday-memo?t=' + Date.now(), { cache: 'no-store' });
                 const data = await response.json();
                 
                 if (data.success && data.memo) {
@@ -1725,7 +1725,7 @@
 
         // 状态控制栏函数（用于测试）
         function setState(state, detail) {
-            fetch('/set_state', {
+            fetch('/star-office/set_state', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ state, detail })
@@ -1763,7 +1763,7 @@
                 return;
             }
             try {
-                const res = await fetch('/assets/auth', {
+                const res = await fetch('/star-office/assets/auth', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ password: val })
@@ -2165,12 +2165,12 @@
                 let serverPositions = {};
                 let serverDefaults = {};
                 try {
-                    const res = await fetch('/assets/positions?t=' + Date.now(), { cache: 'no-store' });
+                    const res = await fetch('/star-office/assets/positions?t=' + Date.now(), { cache: 'no-store' });
                     const data = await res.json();
                     if (data && data.ok && data.items) serverPositions = data.items;
                 } catch (e) {}
                 try {
-                    const res2 = await fetch('/assets/defaults?t=' + Date.now(), { cache: 'no-store' });
+                    const res2 = await fetch('/star-office/assets/defaults?t=' + Date.now(), { cache: 'no-store' });
                     const data2 = await res2.json();
                     if (data2 && data2.ok && data2.items) serverDefaults = data2.items;
                 } catch (e) {}
@@ -2431,7 +2431,7 @@
                 if (idx >= 0) return idx; // 0~3: 四个主状态最前
 
                 // 按钮素材最不重要：统一沉到列表末尾
-                if (p.includes('/btn-') || p.includes('btn-') || p.includes('button')) return 1000;
+                if (p.includes('/star-office/btn-') || p.includes('btn-') || p.includes('button')) return 1000;
 
                 if (p.includes('guest_anim_')) return 999; // guest 动画靠后
                 return 100;
@@ -2458,13 +2458,13 @@
                 const thumbId = `asset-thumb-canvas-${(it.path || '').replace(/[^a-zA-Z0-9]/g, '_')}`;
                 const hidden = isAssetHidden(it.path);
                 const visEmoji = hidden ? '🙈' : '👀';
-                return `<div class="asset-item ${isActive ? 'active' : ''}" data-path="${it.path}" onclick="selectAssetInDrawer('${(it.path || '').replace(/'/g, "\\'")}')">
+                return `<div class="asset-item ${isActive ? 'active' : ''}" data-path="${it.path}" onclick="selectAssetInDrawer('${(it.path || '').replace(/'/star-office/g, "\\'")}')">
                     <canvas id="${thumbId}" class="asset-thumb" width="56" height="56"></canvas>
                     <div class="asset-meta">
                         <div class="asset-path">${it.path}</div>
                         <div class="asset-sub">${displayName} ｜ ${reso}${hidden ? ' ｜ 已隐藏' : ''}</div>
                     </div>
-                    <button class="asset-vis-btn" onclick="toggleAssetVisibility('${(it.path || '').replace(/'/g, "\\'")}', event)">${visEmoji}</button>
+                    <button class="asset-vis-btn" onclick="toggleAssetVisibility('${(it.path || '').replace(/'/star-office/g, "\\'")}', event)">${visEmoji}</button>
                 </div>`;
             }).join('');
 
@@ -2489,7 +2489,7 @@
             const out = document.getElementById('asset-upload-result');
             try {
                 const selectedPath = (selectedAssetInfo && selectedAssetInfo.path) ? selectedAssetInfo.path : '';
-                const res = await fetch('/assets/list?t=' + Date.now(), { cache: 'no-store' });
+                const res = await fetch('/star-office/assets/list?t=' + Date.now(), { cache: 'no-store' });
                 const data = await res.json();
                 assetListData = data.items || [];
 
@@ -2658,7 +2658,7 @@
             }
 
             out.textContent = '⏳ 正在上传并替换，请稍候...';
-            const res = await fetch('/assets/upload', { method: 'POST', body: fd });
+            const res = await fetch('/star-office/assets/upload', { method: 'POST', body: fd });
             const data = await res.json();
             if (!data.ok) {
                 out.textContent = `❌ 更新失败：${data.msg || res.status}`;
@@ -2848,13 +2848,13 @@ function toggleBrokerPanel() {
 
         async function ensureGeminiConfigLoaded() {
             try {
-                const authRes = await fetch('/assets/auth/status', { cache: 'no-store' });
+                const authRes = await fetch('/star-office/assets/auth/status', { cache: 'no-store' });
                 const authData = await authRes.json();
                 assetDrawerAuthed = !!(authData && authData.ok && authData.authed);
                 updateAssetAuthUI();
                 if (!assetDrawerAuthed) return;
 
-                const res = await fetch('/config/gemini', { cache: 'no-store' });
+                const res = await fetch('/star-office/config/gemini', { cache: 'no-store' });
                 const data = await res.json();
                 if (data && data.ok) {
                     window.geminiConfig = {
@@ -2882,7 +2882,7 @@ function toggleBrokerPanel() {
                 return;
             }
             try {
-                const res = await fetch('/config/gemini', {
+                const res = await fetch('/star-office/config/gemini', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ api_key: key, model: 'nanobanana-pro' })
@@ -2916,7 +2916,7 @@ function toggleBrokerPanel() {
 
         // Async generation: start task then poll for result (avoids Cloudflare 524 timeout)
         async function _startAndPollGeneration(body, out, progressMsg) {
-            const res = await fetch('/assets/generate-rpg-background', {
+            const res = await fetch('/star-office/assets/generate-rpg-background', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body)
@@ -2938,7 +2938,7 @@ function toggleBrokerPanel() {
                 const elapsed = Math.round((Date.now() - startTime) / 1000);
                 out.textContent = progressMsg + '（已等待 ' + elapsed + '秒）' + '.'.repeat(dots);
                 try {
-                    const pollRes = await fetch('/assets/generate-rpg-background/poll?task_id=' + encodeURIComponent(taskId));
+                    const pollRes = await fetch('/star-office/assets/generate-rpg-background/poll?task_id=' + encodeURIComponent(taskId));
                     const pollData = await pollRes.json();
                     if (pollData.status === 'pending') continue;
                     return pollData; // done or error
@@ -3049,7 +3049,7 @@ function toggleBrokerPanel() {
             showRoomLoadingOverlay();
             out.textContent = '🏡 正在回老家（恢复初始底图）...';
             try {
-                const res = await fetch('/assets/restore-reference-background', { method: 'POST' });
+                const res = await fetch('/star-office/assets/restore-reference-background', { method: 'POST' });
                 const data = await res.json();
                 if (!data.ok) {
                     out.textContent = `❌ 恢复失败：${data.msg || res.status}`;
@@ -3084,7 +3084,7 @@ function toggleBrokerPanel() {
             showRoomLoadingOverlay();
             out.textContent = '↩️ 正在回退到最近一次生成底图...';
             try {
-                const res = await fetch('/assets/restore-last-generated-background', { method: 'POST' });
+                const res = await fetch('/star-office/assets/restore-last-generated-background', { method: 'POST' });
                 const data = await res.json();
                 if (!data.ok) {
                     out.textContent = `❌ 回退失败：${data.msg || res.status}`;
@@ -3123,7 +3123,7 @@ function toggleBrokerPanel() {
                 // 使用缓存，避免频繁请求
             } else {
                 try {
-                    const data = await fetchJsonSafe('/assets/home-favorites/list', { cache: 'no-store' });
+                    const data = await fetchJsonSafe('/star-office/assets/home-favorites/list', { cache: 'no-store' });
                     if (data && data.ok && Array.isArray(data.items)) {
                         homeFavoritesCache = data.items;
                         homeFavoritesLoadedAt = now;
@@ -3140,7 +3140,7 @@ function toggleBrokerPanel() {
             }
 
             box.innerHTML = homeFavoritesCache.map((it) => {
-                const id = (it.id || '').replace(/'/g, "\\'");
+                const id = (it.id || '').replace(/'/star-office/g, "\\'");
                 const thumb = it.thumb_url || it.url || '';
                 const time = it.created_at || '';
                 return `<div class="home-fav-item">
@@ -3157,7 +3157,7 @@ function toggleBrokerPanel() {
             flashButtonActive(btn);
             const out = document.getElementById('asset-move-result') || document.getElementById('asset-upload-result');
             try {
-                const data = await fetchJsonSafe('/assets/home-favorites/save-current', { method: 'POST' });
+                const data = await fetchJsonSafe('/star-office/assets/home-favorites/save-current', { method: 'POST' });
                 if (!data.ok) {
                     out.textContent = `❌ 收藏失败：${data.msg || 'unknown error'}`;
                     return;
@@ -3175,7 +3175,7 @@ function toggleBrokerPanel() {
             showRoomLoadingOverlay();
             setWorkingStatus('正在替换收藏地图');
             try {
-                const data = await fetchJsonSafe('/assets/home-favorites/apply', {
+                const data = await fetchJsonSafe('/star-office/assets/home-favorites/apply', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ id })
@@ -3199,7 +3199,7 @@ function toggleBrokerPanel() {
             if (!id) return;
             if (!window.confirm('确定删除这个收藏吗？删除后不可恢复。')) return;
             try {
-                const data = await fetchJsonSafe('/assets/home-favorites/delete', {
+                const data = await fetchJsonSafe('/star-office/assets/home-favorites/delete', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ id })
@@ -3224,7 +3224,7 @@ function toggleBrokerPanel() {
             }
             if (!window.confirm(`⚠️ 确定将 ${path} 重置为默认资产吗？`)) return;
             try {
-                const res = await fetch('/assets/restore-default', {
+                const res = await fetch('/star-office/assets/restore-default', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ path })
@@ -3250,7 +3250,7 @@ function toggleBrokerPanel() {
             }
             if (!window.confirm(`⚠️ 确定将 ${path} 回退到上一版吗？`)) return;
             try {
-                const res = await fetch('/assets/restore-prev', {
+                const res = await fetch('/star-office/assets/restore-prev', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ path })
@@ -3331,7 +3331,7 @@ function toggleBrokerPanel() {
         }
 
         function leaveGuestAgent(agentId, name) {
-            fetch('/leave-agent', {
+            fetch('/star-office/leave-agent', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ agentId, name })
@@ -3366,7 +3366,7 @@ function toggleBrokerPanel() {
         }
 
         function approveGuestAgent(agentId) {
-            fetch('/agent-approve', {
+            fetch('/star-office/agent-approve', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ agentId })
@@ -3383,7 +3383,7 @@ function toggleBrokerPanel() {
         }
 
         function rejectGuestAgent(agentId) {
-            fetch('/agent-reject', {
+            fetch('/star-office/agent-reject', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ agentId })
@@ -3840,7 +3840,7 @@ function toggleBrokerPanel() {
             // demo 随机状态先更新（不依赖后端）
             maybeRandomizeDemoVisitors();
 
-            return fetch('/agents?t=' + Date.now(), { cache: 'no-store' })
+            return fetch('/star-office/agents?t=' + Date.now(), { cache: 'no-store' })
                 .then(response => response.json())
                 .then(data => {
                     // 无论后端返回是否为数组，demo=1 都应保证本地 demo 访客可见
@@ -3926,7 +3926,7 @@ function toggleBrokerPanel() {
             setTimeout(async () => {
                 // 动态探测 flowers 精灵表帧规格（避免写死 65x65 导致显示比例异常）
                 try {
-                    const res = await fetch('/assets/list?t=' + Date.now(), { cache: 'no-store' });
+                    const res = await fetch('/star-office/assets/list?t=' + Date.now(), { cache: 'no-store' });
                     const data = await res.json();
                     if (data && data.ok && Array.isArray(data.items)) {
                         const flowerItem = data.items.find(it => (it.path || '').toLowerCase().includes('flowers-bloom-v2'));
@@ -3945,7 +3945,7 @@ function toggleBrokerPanel() {
                 // Only fetch /assets/positions and /assets/defaults when user is authed,
                 // to avoid 401 Unauthorized on first load for new visitors (issue #54).
                 try {
-                    const authRes = await fetch('/assets/auth/status', { cache: 'no-store' });
+                    const authRes = await fetch('/star-office/assets/auth/status', { cache: 'no-store' });
                     const authData = await authRes.json();
                     if (authData && authData.ok && authData.authed) {
                         await applySavedPositionOverrides();
@@ -3977,18 +3977,18 @@ function toggleBrokerPanel() {
             // cache-busting to avoid stale background on client/CDN
             // use smaller/new map version provided by user
             this.load.image('office_bg', '/star-office/office_bg_small.webp?v={{VERSION_TIMESTAMP}}');
-            this.load.spritesheet('star_idle', '/star-idle-v5.png?v={{VERSION_TIMESTAMP}}', { frameWidth: 256, frameHeight: 256 });
+            this.load.spritesheet('star_idle', '/star-office/star-idle-v5.png?v={{VERSION_TIMESTAMP}}', { frameWidth: 256, frameHeight: 256 });
 
             // Furniture
-            this.load.image('sofa_idle', '/sofa-idle-v3.png?v={{VERSION_TIMESTAMP}}');
-            this.load.image('sofa_shadow', '/sofa-shadow-v1.png?v={{VERSION_TIMESTAMP}}');
+            this.load.image('sofa_idle', '/star-office/sofa-idle-v3.png?v={{VERSION_TIMESTAMP}}');
+            this.load.image('sofa_shadow', '/star-office/sofa-shadow-v1.png?v={{VERSION_TIMESTAMP}}');
 
             // Decor
             this.load.spritesheet('plants', '/star-office/plants-spritesheet.webp?v={{VERSION_TIMESTAMP}}', { frameWidth: 160, frameHeight: 160 });
             this.load.spritesheet('posters', '/star-office/posters-spritesheet.webp?v={{VERSION_TIMESTAMP}}', { frameWidth: 160, frameHeight: 160 });
             this.load.spritesheet('coffee_machine', '/star-office/coffee-machine-v3-grid.webp?v={{VERSION_TIMESTAMP}}', { frameWidth: 230, frameHeight: 230 });
             this.load.image('coffee_machine_shadow', '/star-office/coffee-machine-shadow-v1.png?v={{VERSION_TIMESTAMP}}');
-            this.load.spritesheet('serverroom', '/serverroom-spritesheet.webp?v={{VERSION_TIMESTAMP}}', { frameWidth: 180, frameHeight: 251 });
+            this.load.spritesheet('serverroom', '/star-office/serverroom-spritesheet.webp?v={{VERSION_TIMESTAMP}}', { frameWidth: 180, frameHeight: 251 });
 
             // Error / bug animation: 180x180, 96 frames (repacked grid)
             this.load.spritesheet('error_bug', '/star-office/error-bug-spritesheet-grid.webp?v={{VERSION_TIMESTAMP}}', { frameWidth: 220, frameHeight: 220 });
@@ -4003,10 +4003,10 @@ function toggleBrokerPanel() {
             // Star working animation: repacked to grid to avoid WebGL max texture size limits
             // NOTE: prefer WebP for size, PNG fallback
             // 动态替换后按最新素材识别：当前 writing 素材为 300x300 单帧
-            this.load.spritesheet('star_working', '/star-working-spritesheet-grid.webp?v={{VERSION_TIMESTAMP}}', { frameWidth: 300, frameHeight: 300 });
+            this.load.spritesheet('star_working', '/star-office/star-working-spritesheet-grid.webp?v={{VERSION_TIMESTAMP}}', { frameWidth: 300, frameHeight: 300 });
 
             // Sync state animation (256x256, 多帧): 非同步显示首帧，同步从第2帧循环
-            this.load.spritesheet('sync_anim', '/sync-animation-v3-grid.webp?v={{VERSION_TIMESTAMP}}', { frameWidth: 256, frameHeight: 256 });
+            this.load.spritesheet('sync_anim', '/star-office/sync-animation-v3-grid.webp?v={{VERSION_TIMESTAMP}}', { frameWidth: 256, frameHeight: 256 });
 
             // Memo background image
             // memo 底图固定走 png，避免某些端 webp 透明通道异常导致“底图丢失”
