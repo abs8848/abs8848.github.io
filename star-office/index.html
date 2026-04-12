@@ -2458,13 +2458,13 @@
                 const thumbId = `asset-thumb-canvas-${(it.path || '').replace(/[^a-zA-Z0-9]/g, '_')}`;
                 const hidden = isAssetHidden(it.path);
                 const visEmoji = hidden ? '🙈' : '👀';
-                return `<div class="asset-item ${isActive ? 'active' : ''}" data-path="${it.path}" onclick="selectAssetInDrawer('${(it.path || '').replace(/'/star-office/g, "\\'")}')">
+                return `<div class="asset-item ${isActive ? 'active' : ''}" data-path="${it.path}" onclick="selectAssetInDrawer('${(it.path || '').replace(/'/g, "\\'")}')">
                     <canvas id="${thumbId}" class="asset-thumb" width="56" height="56"></canvas>
                     <div class="asset-meta">
                         <div class="asset-path">${it.path}</div>
                         <div class="asset-sub">${displayName} ｜ ${reso}${hidden ? ' ｜ 已隐藏' : ''}</div>
                     </div>
-                    <button class="asset-vis-btn" onclick="toggleAssetVisibility('${(it.path || '').replace(/'/star-office/g, "\\'")}', event)">${visEmoji}</button>
+                    <button class="asset-vis-btn" onclick="toggleAssetVisibility('${(it.path || '').replace(/'/g, "\\'")}', event)">${visEmoji}</button>
                 </div>`;
             }).join('');
 
@@ -3140,7 +3140,7 @@ function toggleBrokerPanel() {
             }
 
             box.innerHTML = homeFavoritesCache.map((it) => {
-                const id = (it.id || '').replace(/'/star-office/g, "\\'");
+                const id = (it.id || '').replace(/'/g, "\\'");
                 const thumb = it.thumb_url || it.url || '';
                 const time = it.created_at || '';
                 return `<div class="home-fav-item">
