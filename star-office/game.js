@@ -220,7 +220,7 @@ const NAME_TAG_COLORS = {
   default: 0x1f2937
 };
 
-// breakroom / writing / error 区域的 agent 分布位置（多 agent 时错开）
+// breakroom / writing / error / library 区域的 agent 分布位置（多 agent 时错开）
 const AREA_POSITIONS = {
   breakroom: [
     { x: 620, y: 180 },
@@ -251,6 +251,17 @@ const AREA_POSITIONS = {
     { x: 140, y: 250 },
     { x: 200, y: 210 },
     { x: 260, y: 260 }
+  ],
+  library: [
+    // 书架区域 - 左侧偏上位置
+    { x: 320, y: 200 },
+    { x: 380, y: 240 },
+    { x: 280, y: 230 },
+    { x: 350, y: 180 },
+    { x: 410, y: 220 },
+    { x: 300, y: 260 },
+    { x: 370, y: 170 },
+    { x: 340, y: 250 }
   ]
 };
 
@@ -927,10 +938,17 @@ function fetchAgents() {
         
         // 根据用户状态决定区域
         let area = 'breakroom';
-        if (userInfo.state === 'working' || userInfo.state === 'writing') {
+        // 电脑区域：工作、写代码、执行
+        if (['working', 'writing', 'executing', 'syncing'].includes(userInfo.state)) {
           area = 'writing';
-        } else if (userInfo.state === 'error') {
+        }
+        // 错误区域
+        else if (userInfo.state === 'error') {
           area = 'error';
+        }
+        // 搜索/研究：书架区域
+        else if (['researching', 'searching', 'reading'].includes(userInfo.state)) {
+          area = 'library'; // 需要添加书架区域
         }
         
         agentList.push({
