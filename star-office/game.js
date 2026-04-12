@@ -962,7 +962,7 @@ function fetchAgents() {
       }
       
       // 重置位置计数器
-      const areaSlots = { breakroom: 0, writing: 0, error: 0 };
+      const areaSlots = { breakroom: 0, writing: 0, error: 0, library: 0 };
       for (let agent of agentList) {
         const area = agent.area || 'breakroom';
         agent._slotIndex = areaSlots[area] || 0;
