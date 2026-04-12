@@ -933,8 +933,8 @@ function fetchAgents() {
       
       // 将 users 对象转换为 agent 数组
       for (const [userId, userInfo] of Object.entries(users)) {
-        // 跳过 owner，因为 owner 用主角色显示
-        if (userId === 'owner') continue;
+        // 不跳过 owner，让所有用户都显示为卡通人物
+        // if (userId === 'owner') continue;
         
         // 根据用户状态决定区域
         let area = 'breakroom';
