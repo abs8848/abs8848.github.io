@@ -4663,7 +4663,7 @@ function toggleBrokerPanel() {
         }
 
         function fetchStatus() {
-            return fetch('/status', { cache: 'no-store' })
+            return fetch('https://star-office-api-ohlg.vercel.app/status', { cache: 'no-store' })
                 .then(response => response.json())
                 .then(data => {
                     try {

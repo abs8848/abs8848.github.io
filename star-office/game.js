@@ -701,7 +701,7 @@ function normalizeState(s) {
 }
 
 function fetchStatus() {
-  fetch('/status')
+  fetch('https://star-office-api-ohlg.vercel.app/status')
     .then(response => response.json())
     .then(data => {
       const nextState = normalizeState(data.state);
