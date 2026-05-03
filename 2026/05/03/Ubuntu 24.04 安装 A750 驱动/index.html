@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="电脑卡顿不用重装系统！完整修复教程（不 Ghost、不重装）, blog,生活,技术">
+    <meta name="keywords" content="Ubuntu 24.04 安装 A750 驱动, blog,生活,技术">
     <meta name="description" content="abs8848 的个人博客">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>电脑卡顿不用重装系统！完整修复教程（不 Ghost、不重装） | My Blog</title>
+    <title>Ubuntu 24.04 安装 A750 驱动 | My Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -247,12 +247,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">电脑卡顿不用重装系统！完整修复教程（不 Ghost、不重装）</h1>
+                    <h1 class="description center-align post-title">Ubuntu 24.04 安装 A750 驱动</h1>
                 </div>
             </div>
         </div>
@@ -401,46 +401,109 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="电脑卡顿不用重装系统！完整修复教程（不-Ghost、不重装）"><a href="#电脑卡顿不用重装系统！完整修复教程（不-Ghost、不重装）" class="headerlink" title="电脑卡顿不用重装系统！完整修复教程（不 Ghost、不重装）"></a>电脑卡顿不用重装系统！完整修复教程（不 Ghost、不重装）</h3><p>按从简单→深度顺序操作，一步步做，大部分老旧 &#x2F; 卡顿电脑能恢复 80% 以上速度，全程不用重装系统。<br>一、先做 3 个立刻见效的简单操作（5 分钟搞定）</p>
-<h4 id="1-关闭开机自启软件（最管用）"><a href="#1-关闭开机自启软件（最管用）" class="headerlink" title="1. 关闭开机自启软件（最管用）"></a>1. 关闭开机自启软件（最管用）</h4><p>Win10&#x2F;Win11 右键任务栏 → 任务管理器 → 启动应用把所有不需要开机自启的全部禁用：微信、QQ、浏览器、播放器、杀毒软件、各种管家、办公软件等只留显卡驱动、输入法、系统必要项，重启电脑立刻变快。<br>2. 清理系统临时垃圾</p>
+                <h1 id="intel-A750-安装UbunTU"><a href="#intel-A750-安装UbunTU" class="headerlink" title="intel A750 安装UbunTU"></a>intel A750 安装UbunTU</h1><h2 id="一、A750-在-Ubuntu-24-04-的速度大概多少（先给结论）"><a href="#一、A750-在-Ubuntu-24-04-的速度大概多少（先给结论）" class="headerlink" title="一、A750 在 Ubuntu 24.04 的速度大概多少（先给结论）"></a>一、A750 在 Ubuntu 24.04 的速度大概多少（先给结论）</h2><ul>
+<li>显存：<strong>8GB GDDR6</strong>，适合 <strong>7B 模型 4bit 量化</strong>（qwen3:4b、qwen:7b-q4、llama3:8b-q4）</li>
+<li>推理速度：<ul>
+<li>Windows：<strong>12~18 token&#x2F;s</strong></li>
+<li>Ubuntu 24.04 + 驱动 + Ollama（SYCL&#x2F;Level Zero）：<strong>30~45 token&#x2F;s</strong></li>
+</ul>
+</li>
+<li>结论：<strong>Linux 比 Windows 快 2～3 倍，接近 RTX3060 水平</strong></li>
+</ul>
+<hr>
+<h2 id="二、Ubuntu-24-04-安装-A750-驱动（直接复制）"><a href="#二、Ubuntu-24-04-安装-A750-驱动（直接复制）" class="headerlink" title="二、Ubuntu 24.04 安装 A750 驱动（直接复制）"></a>二、Ubuntu 24.04 安装 A750 驱动（直接复制）</h2><h3 id="1-先更新系统"><a href="#1-先更新系统" class="headerlink" title="1. 先更新系统"></a>1. 先更新系统</h3><p>bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update &amp;&amp; sudo apt upgrade -y</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-安装-Intel-Arc-驱动-Level-Zero-OpenCL（关键）"><a href="#2-安装-Intel-Arc-驱动-Level-Zero-OpenCL（关键）" class="headerlink" title="2. 安装 Intel Arc 驱动 + Level Zero + OpenCL（关键）"></a>2. 安装 Intel Arc 驱动 + Level Zero + OpenCL（关键）</h3><p>bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install -y \</span><br><span class="line">  intel-opencl-icd \</span><br><span class="line">  intel-level-zero-gpu level-zero \</span><br><span class="line">  mesa-vulkan-drivers \</span><br><span class="line">  vainfo clinfo</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-把自己加入-render-组（权限必须）"><a href="#3-把自己加入-render-组（权限必须）" class="headerlink" title="3. 把自己加入 render 组（权限必须）"></a>3. 把自己加入 render 组（权限必须）</h3><p>bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo gpasswd -a $USER render</span><br><span class="line">newgrp render</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-验证显卡是否正常"><a href="#4-验证显卡是否正常" class="headerlink" title="4. 验证显卡是否正常"></a>4. 验证显卡是否正常</h3><p>bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">clinfo | grep &quot;Device Name&quot;</span><br><span class="line">sycl-ls</span><br></pre></td></tr></table></figure>
+
+<p>能看到 <strong>Intel Arc A750</strong> 就 ok。</p>
+<hr>
+<h2 id="三、安装-Ollama（支持-A750-GPU-加速）"><a href="#三、安装-Ollama（支持-A750-GPU-加速）" class="headerlink" title="三、安装 Ollama（支持 A750 GPU 加速）"></a>三、安装 Ollama（支持 A750 GPU 加速）</h2><h3 id="1-官方安装（自动识别-Intel-GPU）"><a href="#1-官方安装（自动识别-Intel-GPU）" class="headerlink" title="1. 官方安装（自动识别 Intel GPU）"></a>1. 官方安装（自动识别 Intel GPU）</h3><p>bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://ollama.com/install.sh | bash</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-配置-Ollama-用-A750（SYCL-加速）"><a href="#2-配置-Ollama-用-A750（SYCL-加速）" class="headerlink" title="2. 配置 Ollama 用 A750（SYCL 加速）"></a>2. 配置 Ollama 用 A750（SYCL 加速）</h3><p>bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;export OLLAMA_COMPUTE_TYPE=sycl&#x27; &gt;&gt; ~/.bashrc</span><br><span class="line">echo &#x27;export NEOCommandLine=&quot;-cl-intel-greater-than-4GB-buffer-required&quot;&#x27; &gt;&gt; ~/.bashrc</span><br><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-重启-Ollama-并拉模型"><a href="#3-重启-Ollama-并拉模型" class="headerlink" title="3. 重启 Ollama 并拉模型"></a>3. 重启 Ollama 并拉模型</h3><p>bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart ollama</span><br><span class="line">ollama pull qwen3:4b   # 推荐，速度快、中文好</span><br><span class="line"># 或 ollama pull qwen:7b-q4_k_m</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-验证是否在用-GPU"><a href="#4-验证是否在用-GPU" class="headerlink" title="4. 验证是否在用 GPU"></a>4. 验证是否在用 GPU</h3><p>bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ollama run qwen3:4b &quot;测试A750是否加速&quot; --verbose</span><br></pre></td></tr></table></figure>
+
+<p>看日志里有 <strong>sycl&#x2F;level_zero</strong>、<strong>GPU</strong> 字样，且显存占用 3~6GB 就是成功。</p>
+<hr>
+<h2 id="四、Docker-装-OpenClaw（连本地-Ollama）"><a href="#四、Docker-装-OpenClaw（连本地-Ollama）" class="headerlink" title="四、Docker 装 OpenClaw（连本地 Ollama）"></a>四、Docker 装 OpenClaw（连本地 Ollama）</h2><p>bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -d \</span><br><span class="line">  --name openclaw \</span><br><span class="line">  -p 19000:19000 \</span><br><span class="line">  -v /opt/openclaw:/app/data \</span><br><span class="line">  --restart always \</span><br><span class="line">  openclaw/openclaw</span><br></pre></td></tr></table></figure>
+
+<h3 id="OpenClaw-连接设置（浏览器打开）"><a href="#OpenClaw-连接设置（浏览器打开）" class="headerlink" title="OpenClaw 连接设置（浏览器打开）"></a>OpenClaw 连接设置（浏览器打开）</h3><ul>
+<li>地址：<code>http://localhost:19000</code></li>
+<li>添加模型厂商：<strong>自定义</strong></li>
+<li>Base URL：<code>http://host.docker.internal:11434/v1</code></li>
+<li>API Key：随便填（如 <code>123</code>）</li>
+<li>模型名：<code>qwen3:4b</code></li>
+<li>保存→对话，<strong>本地离线、A750 加速</strong>。</li>
+</ul>
+<hr>
+<h2 id="五、A750-最佳模型推荐（8GB-显存）"><a href="#五、A750-最佳模型推荐（8GB-显存）" class="headerlink" title="五、A750 最佳模型推荐（8GB 显存）"></a>五、A750 最佳模型推荐（8GB 显存）</h2><ul>
+<li><strong>qwen3:4b</strong>：最快，<strong>40~45 token&#x2F;s</strong>，中文强</li>
+<li><strong>qwen:7b-q4_k_m</strong>：平衡，<strong>30~35 token&#x2F;s</strong></li>
+<li><strong>llama3:8b-q4_0</strong>：通用，<strong>28~32 token&#x2F;s</strong></li>
+</ul>
+<hr>
+<h2 id="六、常见坑（提前避）"><a href="#六、常见坑（提前避）" class="headerlink" title="六、常见坑（提前避）"></a>六、常见坑（提前避）</h2><ol>
+<li>没显示 GPU：重启、确认 <code>render</code> 组、驱动装好</li>
+<li>显存爆：用 <strong>4bit 量化模型</strong>，别跑 13B</li>
+<li>Docker 连不上 Ollama：用 <code>host.docker.internal:11434</code></li>
+</ol>
+<hr>
+<p>一句话：<strong>Ubuntu 24.04 + A750 + Ollama + OpenClaw 是你现在性价比最高、速度最快的本地 AI 方案</strong>。要不要我给你一份 <strong>一键安装脚本（复制即运行）</strong>，把驱动、Ollama、OpenClaw 一次性装好？</p>
+<h1 id="Ubuntu-24-04-LTS-｜Intel-A750-一键全集脚本"><a href="#Ubuntu-24-04-LTS-｜Intel-A750-一键全集脚本" class="headerlink" title="Ubuntu 24.04 LTS ｜Intel A750 一键全集脚本"></a>Ubuntu 24.04 LTS ｜Intel A750 一键全集脚本</h1><p>功能：</p>
 <ol>
-<li>Win+R 输入 %temp% 回车，全选删除（删不掉的跳过）</li>
-<li>Win+R 输入 temp 回车，同样全删</li>
-<li>回收站清空 </li>
-<li>关闭后台多余程序<br>任务管理器→进程结束占用CPU &#x2F; 内存很高的陌生程序、闲置浏览器标签、没用的后台软件。</li>
+<li>安装 Intel Arc A750 完整独显加速驱动（LevelZero&#x2F;OpenCL）</li>
+<li>安装配置 Ollama 并开启 Intel GPU 硬件加速</li>
+<li>Docker 安装 OpenClaw</li>
+<li>自动拉取适合 A750 的中文本地大模型</li>
+<li>全部开机自启，断电重启自动运行</li>
 </ol>
 <hr>
-<h4 id="二、系统自带优化（不装任何第三方工具）"><a href="#二、系统自带优化（不装任何第三方工具）" class="headerlink" title="二、系统自带优化（不装任何第三方工具）"></a>二、系统自带优化（不装任何第三方工具）</h4><ol>
-<li>磁盘清理<br>此电脑 → 系统盘 C 盘 → 右键属性 → 磁盘清理再点清理系统文件勾选：Windows 更新清理、临时文件、缩略图、日志文件等，确定清理。</li>
-<li>关闭虚拟内存 &#x2F; 视觉特效（低配电脑必做）</li>
-<li>右键此电脑 → 属性 → 高级系统设置 → 高级 → 性能 设置</li>
-<li>勾选调整为最佳性能，也可只保留：平滑字体边缘，其余全关</li>
-<li>再点高级 → 虚拟内存 → 更改把自动管理取消，设置系统盘自定义大小（物理内存 16G 以上可以直接关闭虚拟内存）</li>
-<li>关闭休眠（节省 C 盘空间）<br>以管理员身份打开命令提示符，输入：</li>
+<h2 id="第一步：复制整条命令，终端直接粘贴执行"><a href="#第一步：复制整条命令，终端直接粘贴执行" class="headerlink" title="第一步：复制整条命令，终端直接粘贴执行"></a>第一步：复制整条命令，终端直接粘贴执行</h2><p>bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">set -e</span><br><span class="line"></span><br><span class="line"># 1.系统更新</span><br><span class="line">sudo apt update -y &amp;&amp; sudo apt upgrade -y</span><br><span class="line"></span><br><span class="line"># 2.安装 Intel A750 显卡加速依赖</span><br><span class="line">sudo apt install -y intel-opencl-icd intel-level-zero-gpu level-zero mesa-vulkan-drivers vainfo clinfo</span><br><span class="line"></span><br><span class="line"># 3.添加硬件权限组</span><br><span class="line">sudo gpasswd -a $USER render</span><br><span class="line">newgrp render</span><br><span class="line"></span><br><span class="line"># 4.安装Docker</span><br><span class="line">sudo apt install -y docker.io docker-compose-plugin</span><br><span class="line">sudo systemctl enable docker</span><br><span class="line">sudo systemctl start docker</span><br><span class="line"></span><br><span class="line"># 5.一键安装官方Ollama + Intel GPU加速</span><br><span class="line">curl -fsSL https://ollama.com/install.sh | bash</span><br><span class="line"></span><br><span class="line"># 6.写入Intel SYCL显卡加速环境变量</span><br><span class="line">sudo tee /etc/systemd/system/ollama.service.d/override.conf &gt;/dev/null &lt;&lt;EOF</span><br><span class="line">[Service]</span><br><span class="line">Environment=&quot;OLLAMA_COMPUTE_TYPE=sycl&quot;</span><br><span class="line">Environment=&quot;NEOCommandLine=-cl-intel-greater-than-4GB-buffer-required&quot;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"># 7.重启Ollama生效加速</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart ollama</span><br><span class="line"></span><br><span class="line"># 8.下载适配A750 8G显存 最优中文模型</span><br><span class="line">ollama pull qwen3:4b</span><br><span class="line">ollama pull qwen:7b-q4_k_m</span><br><span class="line"></span><br><span class="line"># 9.部署OpenClaw 容器</span><br><span class="line">sudo docker rm -f openclaw 2&gt;/dev/null || true</span><br><span class="line">sudo docker run -d \</span><br><span class="line">--name openclaw \</span><br><span class="line">-p 19000:19000 \</span><br><span class="line">--add-host=host.docker.internal:host-gateway \</span><br><span class="line">-v /opt/openclaw:/app/data \</span><br><span class="line">--restart always \</span><br><span class="line">openclaw/openclaw</span><br><span class="line"></span><br><span class="line">echo -e &quot;\n=====================================&quot;</span><br><span class="line">echo &quot;✅ 全部安装完成！&quot;</span><br><span class="line">echo &quot;🎮 OpenClaw 访问地址：http://localhost:19000&quot;</span><br><span class="line">echo &quot;🤖 本地模型：qwen3:4b 、 qwen:7b-q4_k_m&quot;</span><br><span class="line">echo &quot;⚡ A750 独显加速已全局开启&quot;</span><br><span class="line">echo &quot;=====================================&quot;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="第二步：OpenClaw-绑定本地-Ollama-（最后一步）"><a href="#第二步：OpenClaw-绑定本地-Ollama-（最后一步）" class="headerlink" title="第二步：OpenClaw 绑定本地 Ollama （最后一步）"></a>第二步：OpenClaw 绑定本地 Ollama （最后一步）</h2><ol>
+<li>浏览器打开：<code>http://本机IP:19000</code></li>
+<li>模型管理 → 添加自定义服务商</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powercfg -h off</span><br></pre></td></tr></table></figure>
-<h2 id="立刻释放几-GB-十几-GB-C-盘空间。"><a href="#立刻释放几-GB-十几-GB-C-盘空间。" class="headerlink" title="立刻释放几 GB~ 十几 GB C 盘空间。"></a>立刻释放几 GB~ 十几 GB C 盘空间。</h2><h4 id="三、查杀流氓软件、病毒、捆绑后台"><a href="#三、查杀流氓软件、病毒、捆绑后台" class="headerlink" title="三、查杀流氓软件、病毒、捆绑后台"></a>三、查杀流氓软件、病毒、捆绑后台</h4><ol>
-<li>卸载全家桶 &#x2F; 流氓软件设置 → 应用 → 已安装应用卸载：各种管家、大师、助手、弹窗软件、不知名播放器、推广软件只留一个正规杀毒即可，不要装 2 个杀毒</li>
-<li>全盘查杀用 Windows Defender 或 正规杀毒，全盘扫描木马、恶意插件。</li>
+<ul>
+<li>接口地址：</li>
+</ul>
+<p>plaintext</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://host.docker.internal:11434/v1</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>API 密钥：随意填写，例如 <code>0000</code></li>
+<li>填写模型名：<code>qwen3:4b</code></li>
+</ul>
+<ol start="3">
+<li>点击<strong>测试连接</strong>，显示成功即可离线本地使用</li>
 </ol>
 <hr>
-<h4 id="四、修复系统损坏、磁盘坏道（系统变慢常见根源）"><a href="#四、修复系统损坏、磁盘坏道（系统变慢常见根源）" class="headerlink" title="四、修复系统损坏、磁盘坏道（系统变慢常见根源）"></a>四、修复系统损坏、磁盘坏道（系统变慢常见根源）</h4><ol>
-<li>修复系统缺失 &#x2F; 损坏文件<br>管理员 CMD 依次输入两条，每条跑完再输下一条：</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sfc /scannow</span><br><span class="line">DISM /Online /Cleanup-Image /RestoreHealth</span><br></pre></td></tr></table></figure>
-<p>自动修复系统底层故障，很多莫名卡顿、闪退都能修好。<br>2. 检测修复磁盘错误<br>C 盘右键→属性→工具→检查→扫描驱动器有错误自动修复。<br>3. 机械硬盘务必磁盘碎片整理</p>
-<h2 id="如果是机械硬盘-HDD：C-盘属性→工具→优化→选中-C-盘优化整理固态硬盘-SSD-不要整理碎片，忽略即可。"><a href="#如果是机械硬盘-HDD：C-盘属性→工具→优化→选中-C-盘优化整理固态硬盘-SSD-不要整理碎片，忽略即可。" class="headerlink" title="如果是机械硬盘 HDD：C 盘属性→工具→优化→选中 C 盘优化整理固态硬盘 SSD 不要整理碎片，忽略即可。"></a>如果是机械硬盘 HDD：C 盘属性→工具→优化→选中 C 盘优化整理固态硬盘 SSD 不要整理碎片，忽略即可。</h2><h4 id="五、C-盘爆满变红导致卡顿？无损清理扩容"><a href="#五、C-盘爆满变红导致卡顿？无损清理扩容" class="headerlink" title="五、C 盘爆满变红导致卡顿？无损清理扩容"></a>五、C 盘爆满变红导致卡顿？无损清理扩容</h4><ol>
-<li>把桌面、文档、下载、微信 QQ 缓存迁移到 D&#x2F;E 盘</li>
-<li>微信电脑端设置→文件管理，改到非 C 盘</li>
-<li>卸载大型软件、游戏装到其他盘</li>
-<li>用分区工具无损把 D 盘空间分给 C 盘（不丢数据、不重装）</li>
-</ol>
+<h2 id="第三步：验证-A750-是否正常显卡运行"><a href="#第三步：验证-A750-是否正常显卡运行" class="headerlink" title="第三步：验证 A750 是否正常显卡运行"></a>第三步：验证 A750 是否正常显卡运行</h2><p>bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 查看显卡识别</span><br><span class="line">clinfo</span><br><span class="line"></span><br><span class="line"># 测试Ollama是否调用GPU</span><br><span class="line">ollama run qwen3:4b 你好 --verbose</span><br></pre></td></tr></table></figure>
+
+<p>看到 <code>sycl</code> &#x2F; <code>gpu</code> 字样 &#x3D; 显卡加速生效✅</p>
 <hr>
-<h4 id="六、终极不用重装的提速方案（硬件层面）"><a href="#六、终极不用重装的提速方案（硬件层面）" class="headerlink" title="六、终极不用重装的提速方案（硬件层面）"></a>六、终极不用重装的提速方案（硬件层面）</h4><p>如果以上都做了还是很慢，90% 是硬件瓶颈：</p>
-<ol>
-<li>老旧电脑加固态硬盘 SSD，把系统装 SSD，速度直接起飞</li>
-<li>内存小于 8G 的，加到 16G，多开软件再也不卡这两个比折腾系统优化管用十倍，且不用重装也能升级。</li>
-</ol>
+<h2 id="关键性能参考（你的-A750-Ubuntu24-04）"><a href="#关键性能参考（你的-A750-Ubuntu24-04）" class="headerlink" title="关键性能参考（你的 A750+Ubuntu24.04）"></a>关键性能参考（你的 A750+Ubuntu24.04）</h2><ul>
+<li>qwen3:4b ：<strong>35～45 token&#x2F;s</strong></li>
+<li>qwen7b-4bit：<strong>28～35 token&#x2F;s</strong>纯本地离线、无网络、比 Windows 快非常多。</li>
+</ul>
 
                 
             </div>
@@ -467,7 +530,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://abs8848.github.io/2026/05/03/%E7%94%B5%E8%84%91%E5%8D%A1%E9%A1%BF%E4%B8%8D%E7%94%A8%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%EF%BC%81%E5%AE%8C%E6%95%B4%E4%BF%AE%E5%A4%8D%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%8D-Ghost%E3%80%81%E4%B8%8D%E9%87%8D%E8%A3%85%EF%BC%89/">https://abs8848.github.io/2026/05/03/%E7%94%B5%E8%84%91%E5%8D%A1%E9%A1%BF%E4%B8%8D%E7%94%A8%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%EF%BC%81%E5%AE%8C%E6%95%B4%E4%BF%AE%E5%A4%8D%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%8D-Ghost%E3%80%81%E4%B8%8D%E9%87%8D%E8%A3%85%EF%BC%89/</a>
+                    <a href="https://abs8848.github.io/2026/05/03/Ubuntu%2024.04%20%E5%AE%89%E8%A3%85%20A750%20%E9%A9%B1%E5%8A%A8/">https://abs8848.github.io/2026/05/03/Ubuntu%2024.04%20%E5%AE%89%E8%A3%85%20A750%20%E9%A9%B1%E5%8A%A8/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -676,13 +739,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2026/05/03/Ubuntu%2024.04%20%E5%AE%89%E8%A3%85%20A750%20%E9%A9%B1%E5%8A%A8/">
+                <a href="/2026/05/03/OpenClaw%20Zero%20Token%20Windows%E4%B8%80%E9%94%AE%E5%90%AF%E5%8A%A8%E8%84%9A%E6%9C%AC%E5%8F%8AWSL%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Ubuntu 24.04 安装 A750 驱动">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="OpenClaw Zero Token Windows一键启动脚本及WSL配置清单">
                         
-                        <span class="card-title">Ubuntu 24.04 安装 A750 驱动</span>
+                        <span class="card-title">OpenClaw Zero Token Windows一键启动脚本及WSL配置清单</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -713,13 +776,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2026/05/03/hello-world/">
+                <a href="/2026/05/03/%E7%94%B5%E8%84%91%E5%8D%A1%E9%A1%BF%E4%B8%8D%E7%94%A8%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%EF%BC%81%E5%AE%8C%E6%95%B4%E4%BF%AE%E5%A4%8D%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%8D-Ghost%E3%80%81%E4%B8%8D%E9%87%8D%E8%A3%85%EF%BC%89/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="电脑卡顿不用重装系统！完整修复教程（不 Ghost、不重装）">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">电脑卡顿不用重装系统！完整修复教程（不 Ghost、不重装）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">

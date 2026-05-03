@@ -401,10 +401,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <hr>
-<p>title: OpenClaw Zero Token Windows一键启动脚本及WSL配置清单<br>date: 2026-05-03 17:06:00<br>tags: []<br>categories: []</p>
-<hr>
-<h1 id="OpenClaw-Zero-Token-Windows一键启动脚本及WSL配置清单"><a href="#OpenClaw-Zero-Token-Windows一键启动脚本及WSL配置清单" class="headerlink" title="OpenClaw Zero Token Windows一键启动脚本及WSL配置清单"></a>OpenClaw Zero Token Windows一键启动脚本及WSL配置清单</h1><h1 id="一、Windows一键启动脚本（-bat）"><a href="#一、Windows一键启动脚本（-bat）" class="headerlink" title="一、Windows一键启动脚本（.bat）"></a>一、Windows一键启动脚本（.bat）</h1><p>说明：双击运行即可启动Chrome调试模式（无需手动输命令、关闭现有Chrome），启动后会自动打开Chrome调试验证页面，脚本可放在任意文件夹（如桌面），命名为「OpenClaw_Chrome调试启动.bat」。</p>
+                <h1 id="OpenClaw-Zero-Token-Windows一键启动脚本及WSL配置清单"><a href="#OpenClaw-Zero-Token-Windows一键启动脚本及WSL配置清单" class="headerlink" title="OpenClaw Zero Token Windows一键启动脚本及WSL配置清单"></a>OpenClaw Zero Token Windows一键启动脚本及WSL配置清单</h1><h1 id="一、Windows一键启动脚本（-bat）"><a href="#一、Windows一键启动脚本（-bat）" class="headerlink" title="一、Windows一键启动脚本（.bat）"></a>一、Windows一键启动脚本（.bat）</h1><p>说明：双击运行即可启动Chrome调试模式（无需手动输命令、关闭现有Chrome），启动后会自动打开Chrome调试验证页面，脚本可放在任意文件夹（如桌面），命名为「OpenClaw_Chrome调试启动.bat」。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">:: 关闭所有Chrome进程（避免调试端口占用）</span><br><span class="line">taskkill /f /im chrome.exe &gt;nul 2&gt;&amp;1</span><br><span class="line">:: 启动Chrome调试模式（端口9222，独立配置目录）</span><br><span class="line">start &quot;&quot; &quot;C:\Program Files\Google\Chrome\Application\chrome.exe&quot; --remote-debugging-port=9222 --user-data-dir=%USERPROFILE%\ChromeDebug</span><br><span class="line">:: 延迟2秒，打开调试验证页面</span><br><span class="line">timeout /t 2 /nobreak &gt;nul</span><br><span class="line">start &quot;&quot; http://127.0.0.1:9222/json</span><br><span class="line">:: 提示信息</span><br><span class="line">echo Chrome调试模式已启动，验证页面已打开！</span><br><span class="line">echo 注意：请勿关闭此命令行窗口，关闭则Chrome调试模式终止。</span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
 
 <p>补充：若Chrome安装路径不同（如32位、自定义路径），修改第5行的Chrome.exe路径即可，常见备选路径：</p>
@@ -705,13 +702,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2026/05/03/%E7%94%B5%E8%84%91%E5%8D%A1%E9%A1%BF%E4%B8%8D%E7%94%A8%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%EF%BC%81%E5%AE%8C%E6%95%B4%E4%BF%AE%E5%A4%8D%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%8D-Ghost%E3%80%81%E4%B8%8D%E9%87%8D%E8%A3%85%EF%BC%89/">
+                <a href="/2026/05/03/Ubuntu%2024.04%20%E5%AE%89%E8%A3%85%20A750%20%E9%A9%B1%E5%8A%A8/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="电脑卡顿不用重装系统！完整修复教程（不 Ghost、不重装）">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Ubuntu 24.04 安装 A750 驱动">
                         
-                        <span class="card-title">电脑卡顿不用重装系统！完整修复教程（不 Ghost、不重装）</span>
+                        <span class="card-title">Ubuntu 24.04 安装 A750 驱动</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
