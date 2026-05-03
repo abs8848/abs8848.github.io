@@ -6,3 +6,7 @@ node_modules/
 public/
 .deploy*/
 _multiconfig.yml
+_admin-config.yml
+_config.landscape.yml
+scaffolds/
+package-lock.json
