@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="我的第一篇博客, blog,生活,技术">
+    <meta name="keywords" content="OpenClaw Zero Token Windows一键启动脚本及WSL配置清单, blog,生活,技术">
     <meta name="description" content="abs8848 的个人博客">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>我的第一篇博客 | My Blog</title>
+    <title>OpenClaw Zero Token Windows一键启动脚本及WSL配置清单 | My Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -247,12 +247,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">我的第一篇博客</h1>
+                    <h1 class="description center-align post-title">OpenClaw Zero Token Windows一键启动脚本及WSL配置清单</h1>
                 </div>
             </div>
         </div>
@@ -401,7 +401,37 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <hr>
+<p>title: OpenClaw Zero Token Windows一键启动脚本及WSL配置清单<br>date: 2026-05-03 17:06:00<br>tags: []<br>categories: []</p>
+<hr>
+<h1 id="OpenClaw-Zero-Token-Windows一键启动脚本及WSL配置清单"><a href="#OpenClaw-Zero-Token-Windows一键启动脚本及WSL配置清单" class="headerlink" title="OpenClaw Zero Token Windows一键启动脚本及WSL配置清单"></a>OpenClaw Zero Token Windows一键启动脚本及WSL配置清单</h1><h1 id="一、Windows一键启动脚本（-bat）"><a href="#一、Windows一键启动脚本（-bat）" class="headerlink" title="一、Windows一键启动脚本（.bat）"></a>一、Windows一键启动脚本（.bat）</h1><p>说明：双击运行即可启动Chrome调试模式（无需手动输命令、关闭现有Chrome），启动后会自动打开Chrome调试验证页面，脚本可放在任意文件夹（如桌面），命名为「OpenClaw_Chrome调试启动.bat」。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">:: 关闭所有Chrome进程（避免调试端口占用）</span><br><span class="line">taskkill /f /im chrome.exe &gt;nul 2&gt;&amp;1</span><br><span class="line">:: 启动Chrome调试模式（端口9222，独立配置目录）</span><br><span class="line">start &quot;&quot; &quot;C:\Program Files\Google\Chrome\Application\chrome.exe&quot; --remote-debugging-port=9222 --user-data-dir=%USERPROFILE%\ChromeDebug</span><br><span class="line">:: 延迟2秒，打开调试验证页面</span><br><span class="line">timeout /t 2 /nobreak &gt;nul</span><br><span class="line">start &quot;&quot; http://127.0.0.1:9222/json</span><br><span class="line">:: 提示信息</span><br><span class="line">echo Chrome调试模式已启动，验证页面已打开！</span><br><span class="line">echo 注意：请勿关闭此命令行窗口，关闭则Chrome调试模式终止。</span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
+
+<p>补充：若Chrome安装路径不同（如32位、自定义路径），修改第5行的Chrome.exe路径即可，常见备选路径：</p>
+<ul>
+<li>32位系统：”C:\Program Files (x86)\Google\Chrome\Application\chrome.exe”</li>
+<li>自定义路径：根据自己的Chrome安装目录修改（右键Chrome快捷方式→属性→目标，复制路径即可）</li>
+</ul>
+<h1 id="二、WSL配置清单（复制即用，逐块执行）"><a href="#二、WSL配置清单（复制即用，逐块执行）" class="headerlink" title="二、WSL配置清单（复制即用，逐块执行）"></a>二、WSL配置清单（复制即用，逐块执行）</h1><p>说明：打开WSL终端（Ubuntu），复制以下命令，逐段粘贴执行（每粘贴一段按回车，等待执行完成再粘贴下一段），无需手动输入，避免输错。</p>
+<h2 id="1-基础依赖安装（Node-js-pnpm）"><a href="#1-基础依赖安装（Node-js-pnpm）" class="headerlink" title="1. 基础依赖安装（Node.js + pnpm）"></a>1. 基础依赖安装（Node.js + pnpm）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 更新系统软件包</span></span><br><span class="line"><span class="built_in">sudo</span> apt update &amp;&amp; <span class="built_in">sudo</span> apt upgrade -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装Node.js（&gt;=22.12.0，适配项目需求）</span></span><br><span class="line">curl -fsSL https://deb.nodesource.com/setup_22.x | <span class="built_in">sudo</span> -E bash -</span><br><span class="line"><span class="built_in">sudo</span> apt install -y nodejs</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证Node.js版本（确保&gt;=22.12.0）</span></span><br><span class="line">node -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装pnpm（&gt;=9.0.0）</span></span><br><span class="line">npm install -g pnpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证pnpm版本（确保&gt;=9.0.0）</span></span><br><span class="line">pnpm -v</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-安装WSL版Chrome（调试必需）"><a href="#2-安装WSL版Chrome（调试必需）" class="headerlink" title="2. 安装WSL版Chrome（调试必需）"></a>2. 安装WSL版Chrome（调试必需）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载Chrome安装包</span></span><br><span class="line">wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装Chrome，自动修复依赖</span></span><br><span class="line"><span class="built_in">sudo</span> dpkg -i google-chrome-stable_current_amd64.deb</span><br><span class="line"><span class="built_in">sudo</span> apt -f install -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证Chrome安装（可选）</span></span><br><span class="line">google-chrome --version</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-项目克隆与构建"><a href="#3-项目克隆与构建" class="headerlink" title="3. 项目克隆与构建"></a>3. 项目克隆与构建</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 克隆项目（若已克隆，可跳过此步）</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/linuxhsj/openclaw-zero-token.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入项目目录</span></span><br><span class="line"><span class="built_in">cd</span> openclaw-zero-token</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装项目依赖</span></span><br><span class="line">pnpm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建项目</span></span><br><span class="line">pnpm build</span><br><span class="line">pnpm ui:build</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-常用命令快捷清单（复制即用）"><a href="#4-常用命令快捷清单（复制即用）" class="headerlink" title="4. 常用命令快捷清单（复制即用）"></a>4. 常用命令快捷清单（复制即用）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 启动WSL版Chrome调试（推荐，替代Windows脚本）</span></span><br><span class="line">./start-chrome-debug.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 认证捕获（Chrome调试启动后，新开终端执行）</span></span><br><span class="line">./onboard.sh webauth</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 启动OpenClaw网关</span></span><br><span class="line">./server.sh start</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 网关状态/停止/重启</span></span><br><span class="line">./server.sh status</span><br><span class="line">./server.sh stop</span><br><span class="line">./server.sh restart</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 生成32位Gateway Token（PowerShell中执行，复制到配置文件）</span></span><br><span class="line">-<span class="built_in">join</span> ((<span class="number">65</span>..<span class="number">90</span>)+(<span class="number">97</span>..<span class="number">122</span>)+(<span class="number">48</span>..<span class="number">57</span>) | Get-Random -Count <span class="number">32</span> | ForEach-Object &#123;[char]<span class="variable">$_</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="三、使用说明"><a href="#三、使用说明" class="headerlink" title="三、使用说明"></a>三、使用说明</h1><ol>
+<li>脚本使用：双击.bat文件，自动启动Chrome调试模式，验证页面打开后，确认能看到调试接口信息即可。</li>
+<li>WSL配置：逐段复制命令执行，若某一步报错，优先执行「sudo apt update &amp;&amp; sudo apt upgrade -y」更新系统，再重新执行报错步骤。</li>
+<li>后续使用：每次启动时，先运行.bat脚本（启动Chrome调试），再在WSL中执行「.&#x2F;server.sh start」启动网关，即可正常使用。</li>
+</ol>
+<h1 id="四、常见问题修复（脚本-配置报错用）"><a href="#四、常见问题修复（脚本-配置报错用）" class="headerlink" title="四、常见问题修复（脚本&#x2F;配置报错用）"></a>四、常见问题修复（脚本&#x2F;配置报错用）</h1><ul>
+<li>bat脚本报错“找不到Chrome.exe”：修改脚本中Chrome路径，参考上方“补充”内容。</li>
+<li>WSL中“wget: command not found”：执行「sudo apt install -y wget」安装wget。</li>
+<li>pnpm安装失败：确保Node.js版本达标，若仍失败，执行「npm cache clean -f」后重新安装pnpm。</li>
+</ul>
+
                 
             </div>
             <hr/>
@@ -427,7 +457,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://abs8848.github.io/2026/05/03/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">https://abs8848.github.io/2026/05/03/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</a>
+                    <a href="https://abs8848.github.io/2026/05/03/OpenClaw%20Zero%20Token%20Windows%E4%B8%80%E9%94%AE%E5%90%AF%E5%8A%A8%E8%84%9A%E6%9C%AC%E5%8F%8AWSL%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95/">https://abs8848.github.io/2026/05/03/OpenClaw%20Zero%20Token%20Windows%E4%B8%80%E9%94%AE%E5%90%AF%E5%8A%A8%E8%84%9A%E6%9C%AC%E5%8F%8AWSL%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -632,17 +662,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2026/05/03/%E7%94%B5%E8%84%91%E5%8D%A1%E9%A1%BF%E4%B8%8D%E7%94%A8%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%EF%BC%81%E5%AE%8C%E6%95%B4%E4%BF%AE%E5%A4%8D%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%8D-Ghost%E3%80%81%E4%B8%8D%E9%87%8D%E8%A3%85%EF%BC%89/">
+                <a href="/2026/05/03/OpenClaw%20Zero%20Token%20Windows%E4%B8%80%E9%94%AE%E5%90%AF%E5%8A%A8%E8%84%9A%E6%9C%AC%E5%8F%8AWSL%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="电脑卡顿不用重装系统！完整修复教程（不 Ghost、不重装）">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="OpenClaw Zero Token Windows一键启动脚本及WSL配置清单">
                         
-                        <span class="card-title">电脑卡顿不用重装系统！完整修复教程（不 Ghost、不重装）</span>
+                        <span class="card-title">OpenClaw Zero Token Windows一键启动脚本及WSL配置清单</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -652,9 +683,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2026-05-03
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-05-03
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -663,6 +694,7 @@
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -673,13 +705,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2026/05/03/hello-world/">
+                <a href="/2026/05/03/%E7%94%B5%E8%84%91%E5%8D%A1%E9%A1%BF%E4%B8%8D%E7%94%A8%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%EF%BC%81%E5%AE%8C%E6%95%B4%E4%BF%AE%E5%A4%8D%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%8D-Ghost%E3%80%81%E4%B8%8D%E9%87%8D%E8%A3%85%EF%BC%89/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="电脑卡顿不用重装系统！完整修复教程（不 Ghost、不重装）">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">电脑卡顿不用重装系统！完整修复教程（不 Ghost、不重装）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
